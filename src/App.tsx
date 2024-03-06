@@ -1,10 +1,10 @@
-import FormWithoutRHF from './components/formWithoutRHF/FormWithoutRHF'
+import FormWithRHF from './components/formWithRHF/FormWithRHF'
 
 function App() {
 
   return (
     <div className="h-full w-full flex justify-center">
-      <FormWithoutRHF />
+      <FormWithRHF />
     </div>
   )
 }

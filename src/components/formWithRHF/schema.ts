@@ -1,24 +1,20 @@
-import { z } from "zod";
+import { z } from 'zod';
+import { VALUES } from './constants';
 
-const validationSchema = z
-    .object({
-        firstName: z.string().min(1, { message: "Firstname is required!" }),
-        lastName: z.string().min(1, { message: "Lastname is required!" }),
-        email: z.string().min(1, { message: "Email is required!" }).email({
-            message: "Email is not valid!",
-        }),
-        password: z
-            .string()
-            .min(6, { message: "Password must be at least 6 characters!" }),
-        confirmPassword: z
-            .string()
-            .min(1, { message: "Confirm password is required!" }),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-        path: ["confirmPassword"],
-        message: "Passwords don't match",
-    });
+const validationSchema = z.object({
+    firstName: z.string().min(1, { message: "First Name is required" }),
+    lastName: z.string().min(1, { message: "Last Name is required" }),
+    email: z.string().min(1, { message: "Email is required" }).email({ message: "Invalid email" }),
+    age: z.enum(VALUES),
+    password: z.string().min(6, { message: "Password is required" }),
+    confirmPassword: z.string().min(6, { message: "Password is required" })
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"]
+})
 
-export type ValidationSchema = z.infer<typeof validationSchema>;
+export type TValidationSchema = z.infer<typeof validationSchema>;
 
-export { validationSchema };
+export {
+    validationSchema
+}
